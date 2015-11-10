@@ -1,0 +1,16 @@
+{
+  "name": "garden",
+  "version": "1.0.0",
+  "description": "A garden manager and plant diagnostics engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Chung",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.5"
+  }
+}
