@@ -13,7 +13,13 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id?', function(req, res) {
-	res.send("ID: " + req.params.id);
+	Reading
+		.findById(req.params.id)
+		.exec()
+		.then(function(data) {
+			res.send(data);
+		})
+		.catch(ErrorHandler);
 });
 
 router.post('/', function(req, res) {
