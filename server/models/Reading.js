@@ -3,8 +3,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 	
 var schema = new Schema({
-	lux: Number,
-	temp: Number,
+	lux: {
+		type: Number,
+		required: true,
+	},
+	temp: {
+		type: Number,
+		required: true,
+	},
 	humidity: Number,
 	pH: Number,
 });

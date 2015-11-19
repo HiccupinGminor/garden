@@ -19,7 +19,14 @@ router.get('/:id?', function(req, res) {
 		.then(function(data) {
 			res.send(data);
 		})
-		.catch(ErrorHandler);
+		.catch(function(error) {
+			if(error.name == 'CastError') {
+				res.sendStatus(404);
+			}
+			else {
+				res.sendStatus(500);
+			}
+		});
 });
 
 router.post('/', function(req, res) {
@@ -31,7 +38,14 @@ router.post('/', function(req, res) {
 	.then(function(data) {
 		res.send(data);
 	})
-	.catch(ErrorHandler);
+	.catch(function(error) {
+		if(error.name == 'ValidationError') {
+			res.sendStatus(400);
+		}
+		else {
+			res.sendStatus(500);
+		}
+	});
 });
 
 module.exports = router;
