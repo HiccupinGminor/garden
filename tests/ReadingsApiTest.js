@@ -5,6 +5,9 @@ var Reading = require('../server/models/Reading');
 var baseUrl = 'http://localhost:3000';
 
 describe('Readings API', function() {
+
+	var reading;
+
 	describe('GET collection', function() {
 		it('Should return a JSON array', function(done) {
 			request(baseUrl)
@@ -34,4 +37,29 @@ describe('Readings API', function() {
 				.expect(400, done);
 		});
 	});
+
+	reading = {
+		"lux": 100,
+		"temp": 1000,
+		"humidity": 50.0,
+		"pH": 6.2
+	};
+
+	describe('POST collection', function() {
+		it('Should return a 201 on success and return a response payload', function(done) {
+			request(baseUrl)
+				.post('/api/v1/readings')
+				.send(reading)
+				.expect(function(res) {
+					var key;
+					for(key in reading) {
+						if(!res.body[key]) {
+							throw new Error("'" + key + "' Should be returned in response payload object.");
+						}
+					}
+				})
+				.expect(201, done);
+		});
+	});
+
 });

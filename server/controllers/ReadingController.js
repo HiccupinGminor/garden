@@ -32,11 +32,11 @@ router.get('/:id?', function(req, res) {
 router.post('/', function(req, res) {
 	var body = req.body,
 			model;
-
+		
 	model = new Reading(body);
 	model.save()
 	.then(function(data) {
-		res.send(data);
+		res.status(201).send(data);
 	})
 	.catch(function(error) {
 		if(error.name == 'ValidationError') {
