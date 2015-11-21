@@ -4,21 +4,32 @@
   "description": "A garden manager and plant diagnostics engine",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify -t reactify public/src/main.jsx > public/dist/include.js"
   },
   "author": "Chris Chung",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.4.7",
+    "babel-preset-react": "^6.1.18",
+    "babelify": "^7.2.0",
     "body-parser": "^1.14.1",
     "chai": "^3.4.1",
     "express": "^4.13.3",
     "kerberos": "0.0.17",
     "mocha": "^2.3.3",
     "mongoose": "^4.2.5",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "reactify": "^1.1.1",
     "should": "^7.1.1"
   },
   "devDependencies": {
     "supertest": "^1.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
   }
 }
