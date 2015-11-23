@@ -19021,15 +19021,19 @@ process.umask = function() { return 0; };
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var HelloWorld = React.createClass({displayName: "HelloWorld",
+var Readings = React.createClass({displayName: "Readings",
 	render: function() {
 		return (
-			React.createElement("h1", null, "Hello Reacts")
+			React.createElement("ul", null, 
+			this.props.readings.map(function(reading) {
+				return React.createElement("li", null, reading.lux)
+			})
+			)
 		);
 	}
 });
 
-ReactDOM.render(React.createElement(HelloWorld, null), document.getElementById('example'));
+ReactDOM.render(React.createElement(Readings, {readings: [{lux:10},{lux:100}]}), document.getElementById('mount'));
 
 
 },{"react":157,"react-dom":1}]},{},[159]);
