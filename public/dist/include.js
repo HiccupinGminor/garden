@@ -19022,18 +19022,45 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var Readings = React.createClass({displayName: "Readings",
+	getInitialState: function() {
+		return {
+			lux: 'Pending',
+			humidity: 'Pending',
+			pH: 'Pending',
+		};
+	},
+
 	render: function() {
 		return (
 			React.createElement("ul", null, 
-			this.props.readings.map(function(reading) {
-				return React.createElement("li", null, reading.lux)
-			})
+				React.createElement("li", null, "Lux: ", this.state.lux), 
+				React.createElement("li", null, "Humidity: ", this.state.humidity), 
+				React.createElement("li", null, "pH: ", this.state.pH)
 			)
 		);
+	},
+	
+	componentDidMount: function() {
+		var that = this;
+
+		function listener () {
+		  var newState = JSON.parse(this.response)[0];
+
+		  that.setState({
+		  	lux: newState.lux,
+		  	humidity: newState.humidity,
+		  	pH: newState.pH
+		  });
+		};
+
+		var req = new XMLHttpRequest();
+		req.addEventListener("load", listener);
+		req.open("GET", "api/v1/readings");
+		req.send();
 	}
 });
 
-ReactDOM.render(React.createElement(Readings, {readings: [{lux:10},{lux:100}]}), document.getElementById('mount'));
+ReactDOM.render(React.createElement(Readings, null), document.getElementById('mount'));
 
 
 },{"react":157,"react-dom":1}]},{},[159]);

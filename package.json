@@ -25,6 +25,9 @@
     "should": "^7.1.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-util": "^3.0.7",
     "supertest": "^1.1.0"
   },
   "browserify": {
