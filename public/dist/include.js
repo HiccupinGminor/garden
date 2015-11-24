@@ -19021,7 +19021,7 @@ process.umask = function() { return 0; };
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Readings = React.createClass({displayName: "Readings",
+var ReadingsList = React.createClass({displayName: "ReadingsList",
 	getInitialState: function() {
 		return {
 			lux: 'Pending',
@@ -19032,11 +19032,7 @@ var Readings = React.createClass({displayName: "Readings",
 
 	render: function() {
 		return (
-			React.createElement("ul", null, 
-				React.createElement("li", null, "Lux: ", this.state.lux), 
-				React.createElement("li", null, "Humidity: ", this.state.humidity), 
-				React.createElement("li", null, "pH: ", this.state.pH)
-			)
+			React.createElement(Reading, {data: this.state})
 		);
 	},
 	
@@ -19060,7 +19056,19 @@ var Readings = React.createClass({displayName: "Readings",
 	}
 });
 
-ReactDOM.render(React.createElement(Readings, null), document.getElementById('mount'));
+var Reading = React.createClass({displayName: "Reading",
+	render: function() {
+		return (
+			React.createElement("ul", null, 
+				React.createElement("li", null, "Lux: ", this.props.data.lux), 
+				React.createElement("li", null, "Humidity: ", this.props.data.humidity), 
+				React.createElement("li", null, "pH: ", this.props.data.pH)
+			)
+		)
+	}
+});
+
+ReactDOM.render(React.createElement(ReadingsList, null), document.getElementById('mount'));
 
 
 },{"react":157,"react-dom":1}]},{},[159]);

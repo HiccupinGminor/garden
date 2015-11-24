@@ -3,7 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Readings = React.createClass({
+var ReadingsList = React.createClass({
 	getInitialState: function() {
 		return {
 			lux: 'Pending',
@@ -14,11 +14,7 @@ var Readings = React.createClass({
 
 	render: function() {
 		return (
-			<ul>
-				<li>Lux: {this.state.lux}</li>
-				<li>Humidity: {this.state.humidity}</li>
-				<li>pH: {this.state.pH}</li>
-			</ul>
+			<Reading data={this.state} />
 		);
 	},
 	
@@ -42,4 +38,16 @@ var Readings = React.createClass({
 	}
 });
 
-ReactDOM.render(<Readings />, document.getElementById('mount'));
+var Reading = React.createClass({
+	render: function() {
+		return (
+			<ul>
+				<li>Lux: {this.props.data.lux}</li>
+				<li>Humidity: {this.props.data.humidity}</li>
+				<li>pH: {this.props.data.pH}</li>
+			</ul>
+		)
+	}
+});
+
+ReactDOM.render(<ReadingsList />, document.getElementById('mount'));
