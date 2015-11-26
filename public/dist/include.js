@@ -18997,15 +18997,13 @@ var ReactDOM = require('react-dom');
 var ReadingsList = React.createClass({displayName: "ReadingsList",
 	getInitialState: function() {
 		return {
-			lux: 'Pending',
-			humidity: 'Pending',
-			pH: 'Pending',
+			readings: []
 		};
 	},
 
 	render: function() {
 		return (
-			React.createElement(Reading, {data: this.state})
+			React.createElement(Readings, {data: this.state.readings})
 		);
 	},
 	
@@ -19013,12 +19011,10 @@ var ReadingsList = React.createClass({displayName: "ReadingsList",
 		var that = this;
 
 		function listener () {
-		  var newState = JSON.parse(this.response)[0];
+		  var newState = JSON.parse(this.response);
 
 		  that.setState({
-		  	lux: newState.lux,
-		  	humidity: newState.humidity,
-		  	pH: newState.pH
+		  	readings: newState, 
 		  });
 		};
 
@@ -19029,19 +19025,28 @@ var ReadingsList = React.createClass({displayName: "ReadingsList",
 	}
 });
 
-var Reading = React.createClass({displayName: "Reading",
+var Readings = React.createClass({displayName: "Readings",
 	render: function() {
 		return (
-			React.createElement("ul", null, 
-				React.createElement("li", null, "Lux: ", this.props.data.lux), 
-				React.createElement("li", null, "Humidity: ", this.props.data.humidity), 
-				React.createElement("li", null, "pH: ", this.props.data.pH)
+			React.createElement("table", null, 
+				React.createElement("tbody", null, 
+					this.props.data.map(function(reading) {
+						return (
+							React.createElement("tr", null, 
+								React.createElement("td", null, "Lux: ", reading.lux), ",", 
+								React.createElement("td", null, "Humidity: ", reading.humidity), ",", 
+								React.createElement("td", null, "pH: ", reading.pH)
+							)
+						)
+					})
+				)
 			)
-		)
+		);
 	}
 });
 
-ReactDOM.render(React.createElement(ReadingsList, null), document.getElementById('mount'));
+ReactDOM.render(
+	React.createElement(ReadingsList, null), document.getElementById('mount'));
 
 
 

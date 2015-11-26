@@ -6,15 +6,13 @@ var ReactDOM = require('react-dom');
 var ReadingsList = React.createClass({
 	getInitialState: function() {
 		return {
-			lux: 'Pending',
-			humidity: 'Pending',
-			pH: 'Pending',
+			readings: []
 		};
 	},
 
 	render: function() {
 		return (
-			<Reading data={this.state} />
+			<Readings data={this.state.readings} />
 		);
 	},
 	
@@ -22,12 +20,10 @@ var ReadingsList = React.createClass({
 		var that = this;
 
 		function listener () {
-		  var newState = JSON.parse(this.response)[0];
+		  var newState = JSON.parse(this.response);
 
 		  that.setState({
-		  	lux: newState.lux,
-		  	humidity: newState.humidity,
-		  	pH: newState.pH
+		  	readings: newState, 
 		  });
 		};
 
@@ -38,16 +34,25 @@ var ReadingsList = React.createClass({
 	}
 });
 
-var Reading = React.createClass({
+var Readings = React.createClass({
 	render: function() {
 		return (
-			<ul>
-				<li>Lux: {this.props.data.lux}</li>
-				<li>Humidity: {this.props.data.humidity}</li>
-				<li>pH: {this.props.data.pH}</li>
-			</ul>
-		)
+			<table>
+				<tbody>
+					{this.props.data.map(function(reading) {
+						return (
+							<tr>
+								<td>Lux: {reading.lux}</td>,
+								<td>Humidity: {reading.humidity}</td>,
+								<td>pH: {reading.pH}</td>
+							</tr>
+						)
+					})}
+				</tbody>
+			</table>
+		);
 	}
 });
 
-ReactDOM.render(<ReadingsList />, document.getElementById('mount'));
+ReactDOM.render(
+	<ReadingsList />, document.getElementById('mount'));
