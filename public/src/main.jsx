@@ -2,6 +2,7 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var io = require('socket.io-client');
 
 var ReadingsList = React.createClass({
 	getInitialState: function() {
@@ -19,6 +20,12 @@ var ReadingsList = React.createClass({
 	componentDidMount: function() {
 		var that = this;
 
+		var socket = io.connect('http://localhost:8000');
+
+		socket.on('readings', function() {
+			console.log("Received!");
+		});
+
 		function listener () {
 		  var newState = JSON.parse(this.response);
 
@@ -27,10 +34,14 @@ var ReadingsList = React.createClass({
 		  });
 		};
 
-		var req = new XMLHttpRequest();
-		req.addEventListener("load", listener);
-		req.open("GET", "api/v1/readings");
-		req.send();
+		function load() {
+			var req = new XMLHttpRequest();
+			req.addEventListener("load", listener);
+			req.open("GET", "api/v1/readings");
+			req.send();	
+		}
+
+		load();
 	}
 });
 
