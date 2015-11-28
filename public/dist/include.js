@@ -25998,6 +25998,7 @@ var ReadingsList = React.createClass({displayName: "ReadingsList",
 
 		socket.on('readings', function() {
 			console.log("Received!");
+			load();
 		});
 
 		function listener () {

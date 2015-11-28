@@ -24,6 +24,7 @@ var ReadingsList = React.createClass({
 
 		socket.on('readings', function() {
 			console.log("Received!");
+			load();
 		});
 
 		function listener () {
