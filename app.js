@@ -2,11 +2,11 @@
 
 var express = require('express');
 var app = express();
-// var router = require('./server/router.js');
+
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
-var routes = require('./server/router');
+var router = require('./server/router');
 mongoose.Promise = require('bluebird');
 
 var socketServer = require('http').Server(app);
@@ -25,4 +25,4 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.listen(3000);
 
-routes(app, io);
+router(app, io);
