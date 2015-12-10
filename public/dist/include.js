@@ -25972,6 +25972,18 @@ function toArray(list, index) {
 }
 
 },{}],206:[function(require,module,exports){
+module.exports = {
+
+	request: function(method, url, listener) {
+		var req = new XMLHttpRequest();
+		req.addEventListener("load", listener);
+		req.open(method, url);
+		req.send();	
+	}
+}
+
+
+},{}],207:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -25997,12 +26009,13 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"react":159}],207:[function(require,module,exports){
+},{"react":159}],208:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
 var Readings = require('./Readings.jsx');
 var io = require('socket.io-client');
+var Data = require('./Data');
 
 module.exports = React.createClass({displayName: "exports",
 	getInitialState: function() {
@@ -26018,14 +26031,8 @@ module.exports = React.createClass({displayName: "exports",
 	},
 	
 	componentDidMount: function() {
-		var that = this;
-
-		var socket = io.connect('http://localhost:8000');
-
-		socket.on('readings', function() {
-			console.log("Received!");
-			load();
-		});
+		var that = this,
+				socket = io.connect('http://localhost:8000');
 
 		function listener () {
 		  var newState = JSON.parse(this.response);
@@ -26036,18 +26043,20 @@ module.exports = React.createClass({displayName: "exports",
 		};
 
 		function load() {
-			var req = new XMLHttpRequest();
-			req.addEventListener("load", listener);
-			req.open("GET", "api/v1/readings");
-			req.send();	
+			Data.request("GET", "api/v1/readings", listener);
 		}
+
+		socket.on('readings', function() {
+			console.log("Received!");
+			load();
+		});
 
 		load();
 	}
 });
 
 
-},{"./Readings.jsx":206,"react":159,"socket.io-client":160}],208:[function(require,module,exports){
+},{"./Data":206,"./Readings.jsx":207,"react":159,"socket.io-client":160}],209:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -26059,4 +26068,4 @@ ReactDOM.render(
 
 
 
-},{"./ReadingsList.jsx":207,"react":159,"react-dom":3}]},{},[208])
+},{"./ReadingsList.jsx":208,"react":159,"react-dom":3}]},{},[209])

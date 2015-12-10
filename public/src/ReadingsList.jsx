@@ -3,6 +3,7 @@
 var React = require('react');
 var Readings = require('./Readings.jsx');
 var io = require('socket.io-client');
+var Data = require('./Data');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -18,14 +19,8 @@ module.exports = React.createClass({
 	},
 	
 	componentDidMount: function() {
-		var that = this;
-
-		var socket = io.connect('http://localhost:8000');
-
-		socket.on('readings', function() {
-			console.log("Received!");
-			load();
-		});
+		var that = this,
+				socket = io.connect('http://localhost:8000');
 
 		function listener () {
 		  var newState = JSON.parse(this.response);
@@ -36,11 +31,13 @@ module.exports = React.createClass({
 		};
 
 		function load() {
-			var req = new XMLHttpRequest();
-			req.addEventListener("load", listener);
-			req.open("GET", "api/v1/readings");
-			req.send();	
+			Data.request("GET", "api/v1/readings", listener);
 		}
+
+		socket.on('readings', function() {
+			console.log("Received!");
+			load();
+		});
 
 		load();
 	}
