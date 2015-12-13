@@ -50,4 +50,9 @@ module.exports = function routes(app, io) {
 				}
 			});
 	});
+
+	app.get(baseUrl + '/recommendations', function(req, res) {
+		res.type('application/json');
+		res.status(200).send();
+	})
 }

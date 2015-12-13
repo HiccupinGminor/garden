@@ -30533,19 +30533,34 @@ var Data = require('./Data');
 var React = require('react');
 
 module.exports = React.createClass({displayName: "exports",
+	
+	submit: function() {
+
+		function listener() {
+			this.props.result = 'FOO';
+		}
+
+		Data.request("GET", "api/v1/recommendations", listener);
+	},
 
 	render: function() {
-		return (React.createElement("form", null, 
+		return (
 			React.createElement("div", null, 
-				React.createElement("label", {for: "zip"}, "Your Zip Code"), 
-				React.createElement("input", {type: "text", name: "zip"})
-			), 
-			React.createElement("div", null, 
-				React.createElement("label", {for: "light"}, "Hours of Light"), 
-				React.createElement("input", {type: "text", name: "light"})
-			), 
-			React.createElement("button", {type: "submit"}, "Get Recommendations")
-		))
+				React.createElement("form", null, 
+				React.createElement("div", null, 
+					React.createElement("label", {for: "zip"}, "Your Zip Code"), 
+					React.createElement("input", {type: "text", name: "zip"})
+				), 
+				React.createElement("div", null, 
+					React.createElement("label", {for: "light"}, "Hours of Light"), 
+					React.createElement("input", {type: "text", name: "light"})
+				), 
+				React.createElement("button", {type: "submit", onClick: this.submit}, "Get Recommendations")
+				), 
+				React.createElement("div", null, 
+					this.props.result
+				)
+			))
 	},
 
 });
