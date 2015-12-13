@@ -4,8 +4,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReadingsList = require('./ReadingsList.jsx');
 var Recommender = require('./Recommender.jsx');
-
-ReactDOM.render(<Recommender />, document.getElementById('mount-recommender'));
+var Router = require('react-router').Router
+var Route = require('react-router').Route
 
 ReactDOM.render(
-	<ReadingsList />, document.getElementById('mount-reading-list'));
+	<Router>
+		<Route path="/" component={ReadingsList}/>
+		<Route path="/recommend" component={Recommender}/>
+	</Router>, document.getElementById('app'));
