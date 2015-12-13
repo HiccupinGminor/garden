@@ -1,6 +1,7 @@
 "use strict";
 
 var Reading = require('./models/Reading');
+var Recommender = require('./models/Recommender');
 var ErrorHandler = require('./utilities/ErrorHandler');
 var baseUrl = '/api/v1';
 
@@ -52,7 +53,17 @@ module.exports = function routes(app, io) {
 	});
 
 	app.get(baseUrl + '/recommendations', function(req, res) {
-		res.type('application/json');
-		res.status(200).send();
-	})
+		var data,
+				query = req.query;
+
+		if(!query.zip) {
+			res.sendStatus(400);
+		}
+		else {
+			data = Recommender.guess(query.zip, query.light);
+			res.type('application/json');	
+			res.send(data);
+		}
+		
+	});
 }
