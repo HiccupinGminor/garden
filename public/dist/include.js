@@ -26059,13 +26059,41 @@ module.exports = React.createClass({displayName: "exports",
 },{"./Data":206,"./Readings.jsx":207,"react":159,"socket.io-client":160}],209:[function(require,module,exports){
 "use strict";
 
+var Data = require('./Data');
+var React = require('react');
+
+module.exports = React.createClass({displayName: "exports",
+
+	render: function() {
+		return (React.createElement("form", null, 
+			React.createElement("div", null, 
+				React.createElement("label", {for: "zip"}, "Your Zip Code"), 
+				React.createElement("input", {type: "text", name: "zip"})
+			), 
+			React.createElement("div", null, 
+				React.createElement("label", {for: "light"}, "Hours of Light"), 
+				React.createElement("input", {type: "text", name: "light"})
+			), 
+			React.createElement("button", {type: "submit"}, "Get Recommendations")
+		))
+	},
+
+});
+
+
+},{"./Data":206,"react":159}],210:[function(require,module,exports){
+"use strict";
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReadingsList = require('./ReadingsList.jsx');
+var Recommender = require('./Recommender.jsx');
+
+ReactDOM.render(React.createElement(Recommender, null), document.getElementById('mount-recommender'));
 
 ReactDOM.render(
-	React.createElement(ReadingsList, null), document.getElementById('mount'));
+	React.createElement(ReadingsList, null), document.getElementById('mount-reading-list'));
 
 
 
-},{"./ReadingsList.jsx":208,"react":159,"react-dom":3}]},{},[209])
+},{"./ReadingsList.jsx":208,"./Recommender.jsx":209,"react":159,"react-dom":3}]},{},[210])
