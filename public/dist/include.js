@@ -30546,7 +30546,7 @@ module.exports = React.createClass({displayName: "exports",
 		var self = this;
 
 		function listener() {
-			self.setState({result: this.response});
+			self.setState({result: JSON.parse(this.response)});
 		}
 
 		Data.request("GET", "api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light , listener);
@@ -30561,9 +30561,9 @@ module.exports = React.createClass({displayName: "exports",
 	},
 
 	render: function() {
-		var isArray = Array.isArray(this.state.result);
-		console.log(isArray);
-		
+		var results = this.state.result.map(function(result) {
+			return React.createElement("li", null, result);
+		})
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", null, 
@@ -30575,9 +30575,9 @@ module.exports = React.createClass({displayName: "exports",
 					React.createElement("input", {type: "text", name: "light", value: this.state.light, onChange: this.changeLight})
 				), 
 				React.createElement("button", {type: "submit", onClick: this.submit}, "Get Recommendations"), 
-				React.createElement("ul", null
-				), 
-				this.state.result
+				React.createElement("ul", null, 
+					results
+				)
 			))
 	},
 

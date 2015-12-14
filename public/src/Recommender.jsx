@@ -17,7 +17,7 @@ module.exports = React.createClass({
 		var self = this;
 
 		function listener() {
-			self.setState({result: this.response});
+			self.setState({result: JSON.parse(this.response)});
 		}
 
 		Data.request("GET", "api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light , listener);
@@ -32,9 +32,9 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var isArray = Array.isArray(this.state.result);
-		console.log(isArray);
-		
+		var results = this.state.result.map(function(result) {
+			return <li>{result}</li>;
+		})
 		return (
 			<div>
 				<div>
@@ -47,8 +47,8 @@ module.exports = React.createClass({
 				</div>
 				<button type="submit" onClick={this.submit}>Get Recommendations</button>
 				<ul>
+					{results}
 				</ul>
-				{this.state.result}
 			</div>)
 	},
 

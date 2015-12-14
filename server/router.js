@@ -61,7 +61,7 @@ module.exports = function routes(app, io) {
 		}
 		else {
 			data = Recommender.guess(query.zip, query.light);
-			res.type('application/json');	
+			res.type('application/json');
 			res.send(data);
 		}
 		
