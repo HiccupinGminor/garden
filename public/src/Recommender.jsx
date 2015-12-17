@@ -7,6 +7,7 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
+			error: '',
 			result: [],
 			zip: '',
 			light: '',
@@ -17,6 +18,10 @@ module.exports = React.createClass({
 		var self = this;
 
 		function listener() {
+			if(this.status != 200) {
+				self.setState({error: 'There was a problem loading your recommendations.'});
+			}
+
 			self.setState({result: JSON.parse(this.response)});
 		}
 
@@ -34,7 +39,9 @@ module.exports = React.createClass({
 	render: function() {
 		var results = this.state.result.map(function(result) {
 			return <li>{result}</li>;
-		})
+		}),
+		error = this.state.error;
+
 		return (
 			<div>
 				<div>
@@ -46,6 +53,7 @@ module.exports = React.createClass({
 					<input type="text" name="light" value={this.state.light} onChange={this.changeLight}/>
 				</div>
 				<button type="submit" onClick={this.submit}>Get Recommendations</button>
+				<p>{error}</p>
 				<ul>
 					{results}
 				</ul>

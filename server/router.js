@@ -56,7 +56,7 @@ module.exports = function routes(app, io) {
 		var data,
 				query = req.query;
 
-		if(!query.zip) {
+		if(!query.zip || !Recommender.isValid(query.zip, query.light)) {
 			res.sendStatus(400);
 		}
 		else {

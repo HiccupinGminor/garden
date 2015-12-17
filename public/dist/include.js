@@ -30536,6 +30536,7 @@ module.exports = React.createClass({displayName: "exports",
 
 	getInitialState: function() {
 		return {
+			error: '',
 			result: [],
 			zip: '',
 			light: '',
@@ -30546,6 +30547,10 @@ module.exports = React.createClass({displayName: "exports",
 		var self = this;
 
 		function listener() {
+			if(this.status != 200) {
+				self.setState({error: 'There was a problem loading your recommendations.'});
+			}
+
 			self.setState({result: JSON.parse(this.response)});
 		}
 
@@ -30563,7 +30568,9 @@ module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		var results = this.state.result.map(function(result) {
 			return React.createElement("li", null, result);
-		})
+		}),
+		error = this.state.error;
+
 		return (
 			React.createElement("div", null, 
 				React.createElement("div", null, 
@@ -30575,6 +30582,7 @@ module.exports = React.createClass({displayName: "exports",
 					React.createElement("input", {type: "text", name: "light", value: this.state.light, onChange: this.changeLight})
 				), 
 				React.createElement("button", {type: "submit", onClick: this.submit}, "Get Recommendations"), 
+				React.createElement("p", null, error), 
 				React.createElement("ul", null, 
 					results
 				)
