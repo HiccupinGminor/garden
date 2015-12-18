@@ -1,6 +1,7 @@
 "use strict";
 
 var zipMap = require('../data/hardiness-zones.json');
+var plants = require('../data/plant-recommendations.json');
 
 module.exports = {
 	isValid: function(zip, light) {
@@ -11,6 +12,10 @@ module.exports = {
 	},
 
 	guess: function(zip, light) {
-		return ['Carrots', 'Lettuce', 'Peas'];
+		if(zipMap[zip]) {
+			let zone = zipMap[zip].zone;
+
+			return plants[zone];
+		}
 	}
 };
