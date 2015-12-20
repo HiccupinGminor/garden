@@ -30538,20 +30538,38 @@ module.exports = React.createClass({displayName: "exports",
 		return {
 			error: '',
 			result: [],
+			message: '',
 			zip: '',
 			light: '',
 		};
 	},
 
 	submit: function() {
-		var self = this;
+		var react = this;
 
 		function listener() {
 			if(this.status != 200) {
-				self.setState({error: 'There was a problem loading your recommendations.'});
+				react.setState({
+					error: 'There was a problem loading your recommendations.',
+					result: []
+				});
+			}
+			else {
+				react.setState({error: ''});
 			}
 
-			self.setState({result: JSON.parse(this.response)});
+			if((JSON.parse(this.response)).length === 0) {
+				react.setState({
+					message: 'There were no results for your search.', 
+					result: []
+				});
+			}
+			else {
+				react.setState({
+					result: JSON.parse(this.response), 
+					message: ''
+				});
+			}
 		}
 
 		Data.request("GET", "api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light , listener);
@@ -30568,8 +30586,7 @@ module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		var results = this.state.result.map(function(result) {
 			return React.createElement("li", null, result);
-		}),
-		error = this.state.error;
+		});
 
 		return (
 			React.createElement("div", null, 
@@ -30582,7 +30599,8 @@ module.exports = React.createClass({displayName: "exports",
 					React.createElement("input", {type: "text", name: "light", value: this.state.light, onChange: this.changeLight})
 				), 
 				React.createElement("button", {type: "submit", onClick: this.submit}, "Get Recommendations"), 
-				React.createElement("p", null, error), 
+				React.createElement("p", null, this.state.error), 
+				React.createElement("p", null, this.state.message), 
 				React.createElement("ul", null, 
 					results
 				)

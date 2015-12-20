@@ -2,7 +2,7 @@
   "name": "garden",
   "version": "1.0.0",
   "description": "A garden manager and plant diagnostics engine",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "bundle": "browserify -t reactify public/src/main.jsx > public/dist/include.js"

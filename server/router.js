@@ -60,7 +60,7 @@ module.exports = function routes(app, io) {
 			res.sendStatus(400);
 		}
 		else {
-			data = Recommender.guess(query.zip, query.light);
+			data = Recommender.guess(query.zip, query.light) || [];
 			res.type('application/json');
 			res.send(data);
 		}
