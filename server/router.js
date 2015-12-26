@@ -4,28 +4,11 @@ var Reading = require('./models/Reading');
 var Recommender = require('./models/Recommender');
 var ErrorHandler = require('./utilities/ErrorHandler');
 var baseUrl = '/api/v1';
+var ReadingController = require('./controllers/ReadingController');
 
 module.exports = function routes(app, io) {
 
-	app.post(baseUrl + '/readings', function(req, res) {
-		var body = req.body,
-				model;
-			
-		model = new Reading(body);
-		model.save()
-		.then(function(data) {
-			io.emit('readings');
-			res.status(201).send(data);
-		})
-		.catch(function(error) {
-			if(error.name == 'ValidationError') {
-				res.sendStatus(400);
-			}
-			else {
-				res.sendStatus(500);
-			}
-		});
-	});
+	app.post(baseUrl + '/readings', ReadingController.create(io));
 
 	app.get(baseUrl + '/readings', function(req, res) {
 		Reading.find().exec()

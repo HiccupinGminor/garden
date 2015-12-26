@@ -12,8 +12,9 @@ module.exports = {
 	},
 
 	guess: function(zip, light) {
+		var zone;
 		if(zipMap[zip]) {
-			let zone = zipMap[zip].zone;
+			 zone = zipMap[zip].zone;
 
 			return plants[zone];
 		}
