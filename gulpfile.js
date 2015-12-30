@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var browserify = require('gulp-browserify');
-var rename = require('gulp-rename');
-var mocha = require('gulp-mocha');
+const gulp = require('gulp');
+const browserify = require('gulp-browserify');
+const rename = require('gulp-rename');
+const mocha = require('gulp-mocha');
 
 gulp.task('bundle', function() {
   gulp.src('public/src/*.jsx', { read: false })

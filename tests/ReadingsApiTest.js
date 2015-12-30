@@ -1,12 +1,10 @@
 "use strict";
 
-var request = require('supertest');
-var Reading = require('../server/models/Reading');
-var baseUrl = 'http://localhost:3000';
+const request = require('supertest');
+const Reading = require('../server/models/Reading');
+const baseUrl = 'http://localhost:3000';
 
 describe('Readings API', function() {
-
-	var reading;
 
 	describe('GET collection', function() {
 		it('Should return a JSON array', function(done) {
@@ -31,11 +29,10 @@ describe('Readings API', function() {
 	});
 
 	describe('GET only one record', function() {
-		var limit = 1;
+		const limit = 1;
 		it('Should return only one record', function(done) {
 			request(baseUrl)
-				.get('/api/v1/readings?limit=' + limit + '&desc')
-				.expect(200, done)
+				.get('/api/v1/readings?limit=' + limit)
 				.expect(function(res) {
 					if(!Array.isArray(res.body)) {
 						throw new Error("Body should still be an array");
@@ -44,7 +41,8 @@ describe('Readings API', function() {
 					if(res.body.length != limit) {
 						throw new Error("Results should be limited by query string");
 					}
-				});
+				})
+				.expect(200, done);
 		});
 	});
 
@@ -56,7 +54,7 @@ describe('Readings API', function() {
 		});
 	});
 
-	reading = {
+	const reading = {
 		"lux": 100,
 		"temp": 1000,
 		"humidity": 50.0,
