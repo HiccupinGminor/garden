@@ -28,7 +28,10 @@ module.exports = {
 
     all: function(io) {
         return function(req, res) {
-            Reading.find().exec()
+            Reading
+            .find()
+            .limit(req.query.limit)
+            .exec()
             .then(function(data) {
                 res.send(data);
             })

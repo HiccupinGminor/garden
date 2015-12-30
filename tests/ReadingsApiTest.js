@@ -30,6 +30,24 @@ describe('Readings API', function() {
 		})
 	});
 
+	describe('GET only one record', function() {
+		var limit = 1;
+		it('Should return only one record', function(done) {
+			request(baseUrl)
+				.get('/api/v1/readings?limit=' + limit + '&desc')
+				.expect(200, done)
+				.expect(function(res) {
+					if(!Array.isArray(res.body)) {
+						throw new Error("Body should still be an array");
+					}
+
+					if(res.body.length != limit) {
+						throw new Error("Results should be limited by query string");
+					}
+				});
+		});
+	});
+
 	describe('POST collection with no payload', function() {
 		it('Should return an error', function(done) {
 			request(baseUrl)
