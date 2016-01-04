@@ -30461,6 +30461,24 @@ var React = require('react');
 module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		return (
+			React.createElement("ul", null, 
+				React.createElement("li", null, "Lux: ", this.props.last.lux), 
+				React.createElement("li", null, "Temp: ", this.props.last.temp), 
+				React.createElement("li", null, "pH: ", this.props.last.pH)
+			)
+		);
+	}
+});
+
+
+},{"react":210}],259:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+module.exports = React.createClass({displayName: "exports",
+	render: function() {
+		return (
 			React.createElement("table", null, 
 				React.createElement("tbody", null, 
 					this.props.data.map(function(reading) {
@@ -30479,24 +30497,29 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"react":210}],259:[function(require,module,exports){
+},{"react":210}],260:[function(require,module,exports){
 "use strict";
 
-var React = require('react');
-var Readings = require('./Readings.jsx');
-var io = require('socket.io-client');
-var Data = require('./Data');
+var React = require('react'),
+		Readings = require('./Readings.jsx'),
+		io = require('socket.io-client'),
+		Data = require('./Data'),
+		LastReadingWidget = require('./LastReadingWidget.jsx');
 
 module.exports = React.createClass({displayName: "exports",
 	getInitialState: function() {
 		return {
-			readings: []
+			readings: [],
+			last: {},
 		};
 	},
 
 	render: function() {
 		return (
-			React.createElement(Readings, {data: this.state.readings})
+			React.createElement("div", null, 
+				React.createElement(LastReadingWidget, {last: this.state.last}), 
+				React.createElement(Readings, {data: this.state.readings})
+			)
 		);
 	},
 	
@@ -30508,7 +30531,8 @@ module.exports = React.createClass({displayName: "exports",
 		  var newState = JSON.parse(this.response);
 
 		  that.setState({
-		  	readings: newState, 
+		  	readings: newState,
+		  	last: newState.pop(),
 		  });
 		};
 
@@ -30526,7 +30550,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./Data":257,"./Readings.jsx":258,"react":210,"socket.io-client":211}],260:[function(require,module,exports){
+},{"./Data":257,"./LastReadingWidget.jsx":258,"./Readings.jsx":259,"react":210,"socket.io-client":211}],261:[function(require,module,exports){
 "use strict";
 
 var Data = require('./Data');
@@ -30610,15 +30634,15 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./Data":257,"react":210}],261:[function(require,module,exports){
+},{"./Data":257,"react":210}],262:[function(require,module,exports){
 "use strict";
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReadingsList = require('./ReadingsList.jsx');
-var Recommender = require('./Recommender.jsx');
-var Router = require('react-router').Router
-var Route = require('react-router').Route
+var React = require('react'),
+ 		ReactDOM = require('react-dom'),
+ 		ReadingsList = require('./ReadingsList.jsx'),
+ 		Recommender = require('./Recommender.jsx'),
+ 		Router = require('react-router').Router,
+ 		Route = require('react-router').Route;
 
 ReactDOM.render(
 	React.createElement(Router, null, 
@@ -30628,4 +30652,4 @@ ReactDOM.render(
 
 
 
-},{"./ReadingsList.jsx":259,"./Recommender.jsx":260,"react":210,"react-dom":28,"react-router":48}]},{},[261])
+},{"./ReadingsList.jsx":260,"./Recommender.jsx":261,"react":210,"react-dom":28,"react-router":48}]},{},[262])

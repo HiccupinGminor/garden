@@ -1,20 +1,25 @@
 "use strict";
 
-var React = require('react');
-var Readings = require('./Readings.jsx');
-var io = require('socket.io-client');
-var Data = require('./Data');
+var React = require('react'),
+		Readings = require('./Readings.jsx'),
+		io = require('socket.io-client'),
+		Data = require('./Data'),
+		LastReadingWidget = require('./LastReadingWidget.jsx');
 
 module.exports = React.createClass({
 	getInitialState: function() {
 		return {
-			readings: []
+			readings: [],
+			last: {},
 		};
 	},
 
 	render: function() {
 		return (
-			<Readings data={this.state.readings} />
+			<div>
+				<LastReadingWidget last={this.state.last} />
+				<Readings data={this.state.readings} />
+			</div>
 		);
 	},
 	
@@ -26,7 +31,8 @@ module.exports = React.createClass({
 		  var newState = JSON.parse(this.response);
 
 		  that.setState({
-		  	readings: newState, 
+		  	readings: newState,
+		  	last: newState.pop(),
 		  });
 		};
 

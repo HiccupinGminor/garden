@@ -1,11 +1,11 @@
 "use strict";
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReadingsList = require('./ReadingsList.jsx');
-var Recommender = require('./Recommender.jsx');
-var Router = require('react-router').Router
-var Route = require('react-router').Route
+var React = require('react'),
+ 		ReactDOM = require('react-dom'),
+ 		ReadingsList = require('./ReadingsList.jsx'),
+ 		Recommender = require('./Recommender.jsx'),
+ 		Router = require('react-router').Router,
+ 		Route = require('react-router').Route;
 
 ReactDOM.render(
 	<Router>
