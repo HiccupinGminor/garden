@@ -30461,10 +30461,13 @@ const React = require('react');
 module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		return (
-			React.createElement("ul", null, 
-				React.createElement("li", null, "Lux: ", this.props.last.lux), 
-				React.createElement("li", null, "Temp: ", this.props.last.temp), 
-				React.createElement("li", null, "pH: ", this.props.last.pH)
+			React.createElement("section", {className: "last-reading"}, 
+				React.createElement("h1", null, "Last Reading"), 	
+				React.createElement("ul", null, 
+					React.createElement("li", null, React.createElement("strong", null, "Lux:"), " ", this.props.last.lux), 
+					React.createElement("li", null, React.createElement("strong", null, "Temp:"), " ", this.props.last.temp), 
+					React.createElement("li", null, React.createElement("strong", null, "pH:"), " ", this.props.last.pH)
+				)
 			)
 		);
 	}
@@ -30480,13 +30483,18 @@ module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		return (
 			React.createElement("table", null, 
+				React.createElement("thead", null, 
+					React.createElement("th", null, "Lux"), 
+					React.createElement("th", null, "Humidity"), 
+					React.createElement("th", null, "PH")
+				), 
 				React.createElement("tbody", null, 
 					this.props.data.map(function(reading) {
 						return (
 							React.createElement("tr", null, 
-								React.createElement("td", null, "Lux: ", reading.lux), ",", 
-								React.createElement("td", null, "Humidity: ", reading.humidity), ",", 
-								React.createElement("td", null, "pH: ", reading.pH)
+								React.createElement("td", null, reading.lux), ",", 
+								React.createElement("td", null, reading.humidity), ",", 
+								React.createElement("td", null, reading.pH)
 							)
 						)
 					})

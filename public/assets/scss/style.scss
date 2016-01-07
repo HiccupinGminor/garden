@@ -3,3 +3,55 @@
 * {
 	@include box-sizing(border-box);
 }
+
+$stodge: #D9C171;
+$loud-bg: #B6CFAE;
+$alert: #BD5E3A;
+
+ul {
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+td, th {
+	padding: 1rem;
+	border: 1px solid $stodge;
+	color: darken($stodge, 45%);
+}
+
+th {
+	background-color: lighten($stodge, 20%);
+}
+
+table {
+	width: 100%;
+}
+
+.container {
+	width: 80%;
+	margin: 2% 10%;
+}
+
+.clearfix {
+	overflow: auto;
+}
+
+.last-reading {
+	border-bottom: 3px solid darken($loud-bg, 10%);
+	margin-bottom: 2%;
+	padding: 1.5rem;
+	background-color: $loud-bg;
+	color: darken($loud-bg, 60%);
+}
+
+.last-reading h1 {
+	color: darken($loud-bg, 75%);
+}
+
+.last-reading li {
+	padding: 1rem 1rem;
+	font-size: 1.5rem;
+}

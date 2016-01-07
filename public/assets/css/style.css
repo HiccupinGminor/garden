@@ -1,3 +1,41 @@
 * {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+ul {
+  padding: 0; }
+
+li {
+  list-style: none; }
+
+td, th {
+  padding: 1rem;
+  border: 1px solid #D9C171;
+  color: #4f4215; }
+
+th {
+  background-color: #efe4c1; }
+
+table {
+  width: 100%; }
+
+.container {
+  width: 80%;
+  margin: 2% 10%; }
+
+.clearfix {
+  overflow: auto; }
+
+.last-reading {
+  border-bottom: 3px solid #99bc8e;
+  margin-bottom: 2%;
+  padding: 1.5rem;
+  background-color: #B6CFAE;
+  color: #212f1c; }
+
+.last-reading h1 {
+  color: black; }
+
+.last-reading li {
+  padding: 1rem 1rem;
+  font-size: 1.5rem; }
