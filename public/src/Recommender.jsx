@@ -1,7 +1,7 @@
 "use strict";
 
-var Data = require('./Data');
-var React = require('react');
+const Data = require('./Data'),
+			React = require('react');
 
 module.exports = React.createClass({
 
@@ -16,7 +16,7 @@ module.exports = React.createClass({
 	},
 
 	submit: function() {
-		var react = this;
+		const react = this;
 
 		function listener() {
 			if(this.status != 200) {
@@ -55,7 +55,7 @@ module.exports = React.createClass({
 	},
 
 	render: function() {
-		var results = this.state.result.map(function(result) {
+		const results = this.state.result.map(function(result) {
 			return <li>{result}</li>;
 		});
 

@@ -30442,21 +30442,21 @@ function toArray(list, index) {
 }
 
 },{}],257:[function(require,module,exports){
-module.exports = {
+"use strict";
+module.exports = {request: function(method, url, listener) {
+    var req = new XMLHttpRequest();
+    req.addEventListener("load", listener);
+    req.open(method, url);
+    req.send();
+  }};
 
-	request: function(method, url, listener) {
-		var req = new XMLHttpRequest();
-		req.addEventListener("load", listener);
-		req.open(method, url);
-		req.send();	
-	}
-}
 
+//# sourceURL=/Users/hiccupingminor/garden/public/src/Data.js
 
 },{}],258:[function(require,module,exports){
 "use strict";
 
-var React = require('react');
+const React = require('react');
 
 module.exports = React.createClass({displayName: "exports",
 	render: function() {
@@ -30474,7 +30474,7 @@ module.exports = React.createClass({displayName: "exports",
 },{"react":210}],259:[function(require,module,exports){
 "use strict";
 
-var React = require('react');
+const React = require('react');
 
 module.exports = React.createClass({displayName: "exports",
 	render: function() {
@@ -30500,7 +30500,7 @@ module.exports = React.createClass({displayName: "exports",
 },{"react":210}],260:[function(require,module,exports){
 "use strict";
 
-var React = require('react'),
+const React = require('react'),
 		Readings = require('./Readings.jsx'),
 		io = require('socket.io-client'),
 		Data = require('./Data'),
@@ -30524,11 +30524,11 @@ module.exports = React.createClass({displayName: "exports",
 	},
 	
 	componentDidMount: function() {
-		var that = this,
+		const that = this,
 				socket = io.connect('http://localhost:8000');
 
 		function listener () {
-		  var newState = JSON.parse(this.response);
+		  const newState = JSON.parse(this.response);
 
 		  that.setState({
 		  	readings: newState,
@@ -30553,8 +30553,8 @@ module.exports = React.createClass({displayName: "exports",
 },{"./Data":257,"./LastReadingWidget.jsx":258,"./Readings.jsx":259,"react":210,"socket.io-client":211}],261:[function(require,module,exports){
 "use strict";
 
-var Data = require('./Data');
-var React = require('react');
+const Data = require('./Data'),
+			React = require('react');
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -30569,7 +30569,7 @@ module.exports = React.createClass({displayName: "exports",
 	},
 
 	submit: function() {
-		var react = this;
+		const react = this;
 
 		function listener() {
 			if(this.status != 200) {
@@ -30608,7 +30608,7 @@ module.exports = React.createClass({displayName: "exports",
 	},
 
 	render: function() {
-		var results = this.state.result.map(function(result) {
+		const results = this.state.result.map(function(result) {
 			return React.createElement("li", null, result);
 		});
 
@@ -30637,12 +30637,12 @@ module.exports = React.createClass({displayName: "exports",
 },{"./Data":257,"react":210}],262:[function(require,module,exports){
 "use strict";
 
-var React = require('react'),
+const React = require('react'),
  		ReactDOM = require('react-dom'),
  		ReadingsList = require('./ReadingsList.jsx'),
  		Recommender = require('./Recommender.jsx'),
  		Router = require('react-router').Router,
- 		Route = require('react-router').Route;
+		Route = require('react-router').Route;
 
 ReactDOM.render(
 	React.createElement(Router, null, 

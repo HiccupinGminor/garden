@@ -1,6 +1,6 @@
 "use strict";
 
-var React = require('react'),
+const React = require('react'),
 		Readings = require('./Readings.jsx'),
 		io = require('socket.io-client'),
 		Data = require('./Data'),
@@ -24,11 +24,11 @@ module.exports = React.createClass({
 	},
 	
 	componentDidMount: function() {
-		var that = this,
+		const that = this,
 				socket = io.connect('http://localhost:8000');
 
 		function listener () {
-		  var newState = JSON.parse(this.response);
+		  const newState = JSON.parse(this.response);
 
 		  that.setState({
 		  	readings: newState,

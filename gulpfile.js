@@ -9,7 +9,7 @@ const livereload = require('gulp-livereload');
 gulp.task('bundle', function() {
   gulp.src('public/src/*.jsx', { read: false })
     .pipe(browserify({
-    	transform: ['reactify'],
+    	transform: ['reactify', 'es6ify'],
     	extensions: ['.jsx'],
     }))
     .pipe(rename('include.js'))
