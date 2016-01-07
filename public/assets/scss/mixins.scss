@@ -1,0 +1,4 @@
+@mixin box-sizing($val) {
+	-moz-box-sizing: $val;
+	box-sizing: $val;
+}

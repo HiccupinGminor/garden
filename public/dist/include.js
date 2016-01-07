@@ -30516,7 +30516,7 @@ module.exports = React.createClass({displayName: "exports",
 
 	render: function() {
 		return (
-			React.createElement("div", null, 
+			React.createElement("section", null, 
 				React.createElement(LastReadingWidget, {last: this.state.last}), 
 				React.createElement(Readings, {data: this.state.readings})
 			)

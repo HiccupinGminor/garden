@@ -16,10 +16,10 @@ module.exports = React.createClass({
 
 	render: function() {
 		return (
-			<div>
+			<section>
 				<LastReadingWidget last={this.state.last} />
 				<Readings data={this.state.readings} />
-			</div>
+			</section>
 		);
 	},
 	
