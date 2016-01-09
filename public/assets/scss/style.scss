@@ -1,4 +1,5 @@
 @import 'mixins';
+@import 'switch';
 
 * {
 	@include box-sizing(border-box);
@@ -57,52 +58,12 @@ table {
 	font-size: 1.5rem;
 }
 
-// Switch styles
-.cmn-toggle {
-  position: absolute;
-  margin-left: -9999px;
-  visibility: hidden;
-}
-.cmn-toggle + div.label-yo {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-}
-
-div.cmn-toggle-round + div.label-yo {
-  padding: 2px;
-  width: 120px;
-  height: 60px;
-  background-color: #dddddd;
-  border-radius: 60px;
-}
-div.cmn-toggle-round + div.label-yo:before,
-div.cmn-toggle-round + div.label-yo:after {
-  display: block;
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  bottom: 1px;
-  content: "";
-}
-div.cmn-toggle-round + div.label-yo:before {
-  right: 1px;
-  background-color: #f1f1f1;
-  border-radius: 60px;
-  transition: background 0.4s;
-}
-div.cmn-toggle-round + div.label-yo:after {
-  width: 58px;
-  background-color: #fff;
-  border-radius: 100%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  transition: margin 0.4s;
-}
-div.switch-on > div.cmn-toggle-round + div.label-yo:before {
-  background-color: #8ce196;
-}
-div.switch-on > div.cmn-toggle-round + div.label-yo:after {
-  margin-left: 60px;
+.status {
+  border: 1px solid $stodge2;
+  border-bottom-width: 2px;
+  color: $stodge;
+  padding: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 10px;
 }

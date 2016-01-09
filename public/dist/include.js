@@ -30535,8 +30535,12 @@ module.exports = React.createClass({displayName: "exports",
 	render: function() {
 		return (
 			React.createElement("section", null, 
-				React.createElement("h1", null, "Lights"), 
-				React.createElement(Switch, null)
+				React.createElement("h1", null, "Light Controls"), 
+				React.createElement("section", {class: "sub-section"}, 
+					React.createElement("h2", null, "Manual Control"), 
+					React.createElement("p", null, "Toggle the lights on and off"), 
+					React.createElement(Switch, null)
+				)
 			)
 		);
 	}
@@ -30730,12 +30734,16 @@ module.exports = React.createClass({displayName: "exports",
 	},
 
   render: function() {
-  	const toggleClasses = classNames('switch', {'switch-on': this.state.isOn});
+  	const toggleClasses = classNames('switch', {'switch-on': this.state.isOn}),
+  				statusText = this.state.isOn ? 'On' : 'Off';
 
     return (
 			React.createElement("div", {className: toggleClasses}, 
 			  React.createElement("div", {id: "cmn-toggle-1", className: "cmn-toggle cmn-toggle-round", type: "checkbox"}), 
-			  React.createElement("div", {className: "label-yo", onClick: this.toggle})
+			  React.createElement("div", {className: "sl", onClick: this.toggle}), 
+			  React.createElement("div", {className: "status on-off-status"}, 
+				  React.createElement("span", null, statusText)
+			  )
 			)
     );
   }

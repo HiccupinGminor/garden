@@ -16,12 +16,16 @@ module.exports = React.createClass({
 	},
 
   render: function() {
-  	const toggleClasses = classNames('switch', {'switch-on': this.state.isOn});
+  	const toggleClasses = classNames('switch', {'switch-on': this.state.isOn}),
+  				statusText = this.state.isOn ? 'On' : 'Off';
 
     return (
 			<div className={toggleClasses}>
 			  <div id="cmn-toggle-1" className="cmn-toggle cmn-toggle-round" type="checkbox"></div>
-			  <div className="label-yo" onClick={this.toggle}></div>
+			  <div className="sl" onClick={this.toggle}></div>
+			  <div className="status on-off-status">
+				  <span>{statusText}</span>
+			  </div>
 			</div>
     );
   }
