@@ -30722,7 +30722,8 @@ module.exports = React.createClass({displayName: "exports",
 "use strict";
 
 const React = require('react'),
-			classNames = require('classnames');
+			classNames = require('classnames'),
+			Data = require('./Data');
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -30734,6 +30735,24 @@ module.exports = React.createClass({displayName: "exports",
 
 	toggle: function() {
 		this.setState({isOn: !this.state.isOn});
+	},
+
+	componentDidMount: function() {
+		const that = this;
+
+		function listener () {
+		  const newState = JSON.parse(this.response);
+
+		  that.setState({
+		  	isOn: newState.lightsOn
+		  });
+		};
+
+		function load() {
+			Data.request("GET", "api/v1/system", listener);
+		}
+
+		load();
 	},
 
   render: function() {
@@ -30753,9 +30772,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-
-
-},{"classnames":1,"react":211}],265:[function(require,module,exports){
+},{"./Data":258,"classnames":1,"react":211}],265:[function(require,module,exports){
 "use strict";
 
 const React = require('react'),

@@ -1,7 +1,8 @@
 "use strict";
 
 const React = require('react'),
-			classNames = require('classnames');
+			classNames = require('classnames'),
+			Data = require('./Data');
 
 module.exports = React.createClass({
 
@@ -13,6 +14,24 @@ module.exports = React.createClass({
 
 	toggle: function() {
 		this.setState({isOn: !this.state.isOn});
+	},
+
+	componentDidMount: function() {
+		const that = this;
+
+		function listener () {
+		  const newState = JSON.parse(this.response);
+
+		  that.setState({
+		  	isOn: newState.lightsOn
+		  });
+		};
+
+		function load() {
+			Data.request("GET", "api/v1/system", listener);
+		}
+
+		load();
 	},
 
   render: function() {
@@ -30,4 +49,3 @@ module.exports = React.createClass({
     );
   }
 });
-
