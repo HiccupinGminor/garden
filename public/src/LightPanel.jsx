@@ -14,6 +14,9 @@ module.exports = React.createClass({
 					<p>Toggle the lights on and off</p>
 					<Switch/>
 				</section>
+				<section>
+					<h2>Schedule</h2>
+				</section>
 			</section>
 		);
 	}

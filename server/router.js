@@ -1,8 +1,9 @@
 "use strict";
 
-var baseUrl = '/api/v1';
-var ReadingsController = require('./controllers/ReadingsController');
-var RecommendationsController = require('./controllers/RecommendationsController');
+const baseUrl = '/api/v1',
+			ReadingsController = require('./controllers/ReadingsController'),
+			RecommendationsController = require('./controllers/RecommendationsController'),
+			SystemController = require('./controllers/SystemController');
 
 module.exports = function routes(app, io) {
 
@@ -13,4 +14,6 @@ module.exports = function routes(app, io) {
 	app.get(baseUrl + '/readings/:id?', ReadingsController.find(io));
 
 	app.get(baseUrl + '/recommendations', RecommendationsController.all(io));
+
+	app.get(baseUrl + '/system', SystemController.first);
 };

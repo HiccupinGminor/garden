@@ -30540,6 +30540,9 @@ module.exports = React.createClass({displayName: "exports",
 					React.createElement("h2", null, "Manual Control"), 
 					React.createElement("p", null, "Toggle the lights on and off"), 
 					React.createElement(Switch, null)
+				), 
+				React.createElement("section", null, 
+					React.createElement("h2", null, "Schedule")
 				)
 			)
 		);
