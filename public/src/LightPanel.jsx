@@ -1,7 +1,8 @@
 "use strict";
 
 const React = require('react'),
-			Switch = require('./Switch.jsx');
+			Switch = require('./Switch.jsx'),
+			LightSchedule = require('./LightSchedule.jsx');
 
 module.exports = React.createClass({
 
@@ -16,6 +17,7 @@ module.exports = React.createClass({
 				</section>
 				<section>
 					<h2>Schedule</h2>
+					<LightSchedule />
 				</section>
 			</section>
 		);
