@@ -1,9 +1,10 @@
 "use strict";
 
+require('isomorphic-fetch');
+
 const React = require('react'),
 		Readings = require('./Readings.jsx'),
 		io = require('socket.io-client'),
-		Data = require('./Data'),
 		LastReadingWidget = require('./LastReadingWidget.jsx');
 
 module.exports = React.createClass({
@@ -26,19 +27,19 @@ module.exports = React.createClass({
 	componentDidMount: function() {
 		const that = this,
 				socket = io.connect('http://localhost:8000');
-
-		function listener () {
-		  const newState = JSON.parse(this.response);
-
-		  that.setState({
-		  	readings: newState,
-		  	last: newState.pop(),
-		  });
+	
+		const load = () => {
+			fetch('api/v1/readings')
+				.then((response) => {
+					return response.json();
+				})
+				.then((readings) => {
+					this.setState({
+				  	readings: readings,
+				  	last: readings.pop(),
+					});
+				});
 		};
-
-		function load() {
-			Data.request("GET", "api/v1/readings", listener);
-		}
 
 		socket.on('readings', function() {
 			console.log("Received!");
