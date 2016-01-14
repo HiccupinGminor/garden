@@ -30884,18 +30884,6 @@ function toArray(list, index) {
 
 },{}],260:[function(require,module,exports){
 "use strict";
-module.exports = {request: function(method, url, listener) {
-    var req = new XMLHttpRequest();
-    req.addEventListener("load", listener);
-    req.open(method, url);
-    req.send();
-  }};
-
-
-//# sourceURL=/Users/hiccupingminor/garden/public/src/Data.js
-
-},{}],261:[function(require,module,exports){
-"use strict";
 
 const React = require('react');
 
@@ -30915,7 +30903,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"react":213}],262:[function(require,module,exports){
+},{"react":213}],261:[function(require,module,exports){
 "use strict";
 
 const React = require('react'),
@@ -30941,7 +30929,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./Switch.jsx":266,"react":213}],263:[function(require,module,exports){
+},{"./Switch.jsx":265,"react":213}],262:[function(require,module,exports){
 "use strict";
 
 const React = require('react');
@@ -30972,7 +30960,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"react":213}],264:[function(require,module,exports){
+},{"react":213}],263:[function(require,module,exports){
 "use strict";
 
 require('isomorphic-fetch');
@@ -31026,11 +31014,12 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./LastReadingWidget.jsx":261,"./Readings.jsx":263,"isomorphic-fetch":25,"react":213,"socket.io-client":214}],265:[function(require,module,exports){
+},{"./LastReadingWidget.jsx":260,"./Readings.jsx":262,"isomorphic-fetch":25,"react":213,"socket.io-client":214}],264:[function(require,module,exports){
 "use strict";
 
-const Data = require('./Data'),
-			React = require('react');
+const React = require('react');
+
+require('isomorphic-fetch');
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -31047,32 +31036,33 @@ module.exports = React.createClass({displayName: "exports",
 	submit: function() {
 		const react = this;
 
-		function listener() {
-			if(this.status != 200) {
-				react.setState({
-					error: 'There was a problem loading your recommendations.',
-					result: []
-				});
-			}
-			else {
-				react.setState({error: ''});
-			}
-
-			if((JSON.parse(this.response)).length === 0) {
-				react.setState({
-					message: 'There were no results for your search.', 
-					result: []
-				});
-			}
-			else {
-				react.setState({
-					result: JSON.parse(this.response), 
-					message: ''
-				});
-			}
-		}
-
-		Data.request("GET", "api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light , listener);
+		fetch("api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light)
+			.then((response) => {
+				if(response.status != 200) {
+					react.setState({
+						error: 'There was a problem loading your recommendations.',
+						result: []
+					});
+				}
+				else {
+					react.setState({error: ''});
+					return response.json();
+				}
+			})
+			.then((results) => {
+				if(results.length === 0) {
+					react.setState({
+						message: 'There were no results for your search.', 
+						result: []
+					});
+				}
+				else {
+					react.setState({
+						result: results, 
+						message: ''
+					});
+				}
+			});
 	},
 
 	changeZip: function(event) {
@@ -31110,12 +31100,13 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./Data":260,"react":213}],266:[function(require,module,exports){
+},{"isomorphic-fetch":25,"react":213}],265:[function(require,module,exports){
 "use strict";
 
 const React = require('react'),
-			classNames = require('classnames'),
-			Data = require('./Data');
+			classNames = require('classnames');
+
+require('isomorphic-fetch');			
 
 module.exports = React.createClass({displayName: "exports",
 
@@ -31132,17 +31123,17 @@ module.exports = React.createClass({displayName: "exports",
 	componentDidMount: function() {
 		const that = this;
 
-		function listener () {
-		  const newState = JSON.parse(this.response);
-
-		  that.setState({
-		  	isOn: newState.lightsOn
-		  });
+		const load = () => {
+			fetch('api/v1/system')
+				.then((response) => {
+					return response.json();
+				})
+				.then((system) => {
+					this.setState({
+				  	isOn: system.lightsOn
+					});
+				});
 		};
-
-		function load() {
-			Data.request("GET", "api/v1/system", listener);
-		}
 
 		load();
 	},
@@ -31164,7 +31155,7 @@ module.exports = React.createClass({displayName: "exports",
 });
 
 
-},{"./Data":260,"classnames":1,"react":213}],267:[function(require,module,exports){
+},{"classnames":1,"isomorphic-fetch":25,"react":213}],266:[function(require,module,exports){
 "use strict";
 
 const React = require('react'),
@@ -31184,4 +31175,4 @@ ReactDOM.render(
 
 
 
-},{"./LightPanel.jsx":262,"./ReadingsList.jsx":264,"./Recommender.jsx":265,"react":213,"react-dom":31,"react-router":51}]},{},[267])
+},{"./LightPanel.jsx":261,"./ReadingsList.jsx":263,"./Recommender.jsx":264,"react":213,"react-dom":31,"react-router":51}]},{},[266])

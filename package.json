@@ -19,6 +19,7 @@
     "classnames": "^2.2.3",
     "express": "^4.13.3",
     "history": "^1.13.1",
+    "isomorphic-fetch": "^2.2.0",
     "kerberos": "0.0.17",
     "mocha": "^2.3.3",
     "mongoose": "^4.2.5",

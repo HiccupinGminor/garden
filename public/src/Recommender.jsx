@@ -1,7 +1,8 @@
 "use strict";
 
-const Data = require('./Data'),
-			React = require('react');
+const React = require('react');
+
+require('isomorphic-fetch');
 
 module.exports = React.createClass({
 
@@ -18,32 +19,33 @@ module.exports = React.createClass({
 	submit: function() {
 		const react = this;
 
-		function listener() {
-			if(this.status != 200) {
-				react.setState({
-					error: 'There was a problem loading your recommendations.',
-					result: []
-				});
-			}
-			else {
-				react.setState({error: ''});
-			}
-
-			if((JSON.parse(this.response)).length === 0) {
-				react.setState({
-					message: 'There were no results for your search.', 
-					result: []
-				});
-			}
-			else {
-				react.setState({
-					result: JSON.parse(this.response), 
-					message: ''
-				});
-			}
-		}
-
-		Data.request("GET", "api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light , listener);
+		fetch("api/v1/recommendations?zip=" + this.state.zip + "&light=" + this.state.light)
+			.then((response) => {
+				if(response.status != 200) {
+					react.setState({
+						error: 'There was a problem loading your recommendations.',
+						result: []
+					});
+				}
+				else {
+					react.setState({error: ''});
+					return response.json();
+				}
+			})
+			.then((results) => {
+				if(results.length === 0) {
+					react.setState({
+						message: 'There were no results for your search.', 
+						result: []
+					});
+				}
+				else {
+					react.setState({
+						result: results, 
+						message: ''
+					});
+				}
+			});
 	},
 
 	changeZip: function(event) {

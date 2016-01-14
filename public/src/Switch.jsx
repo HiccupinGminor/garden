@@ -1,8 +1,9 @@
 "use strict";
 
 const React = require('react'),
-			classNames = require('classnames'),
-			Data = require('./Data');
+			classNames = require('classnames');
+
+require('isomorphic-fetch');			
 
 module.exports = React.createClass({
 
@@ -19,17 +20,17 @@ module.exports = React.createClass({
 	componentDidMount: function() {
 		const that = this;
 
-		function listener () {
-		  const newState = JSON.parse(this.response);
-
-		  that.setState({
-		  	isOn: newState.lightsOn
-		  });
+		const load = () => {
+			fetch('api/v1/system')
+				.then((response) => {
+					return response.json();
+				})
+				.then((system) => {
+					this.setState({
+				  	isOn: system.lightsOn
+					});
+				});
 		};
-
-		function load() {
-			Data.request("GET", "api/v1/system", listener);
-		}
 
 		load();
 	},
