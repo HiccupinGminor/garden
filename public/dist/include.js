@@ -32822,9 +32822,34 @@ const Nouislider = require('react-nouislider');
 
 module.exports = React.createClass({displayName: "exports",
 
-	render: () => {
+	render() {
 		return (
-			React.createElement(Nouislider, {range: {min: 0, max: 100}, start: [10, 25], tooltips: true, connect: true})
+			React.createElement(Nouislider, {
+				range: {min: 1, max: 24}, 
+				start: [8, 20], 
+				tooltips: true, 
+				connect: true, 
+				step: 1, 
+		    format: {
+		    	to(value) {
+		    		let period = 'am'
+		    		let num = value % 12;
+
+		    		if(value >= 12) {
+		    			period = 'pm';
+		    		}
+
+		    		if(num === 0) {
+		    			num = 12;
+		    		}
+
+		    		return num + ':00 ' + period;
+		    	},
+		    	from(value) {
+		    		return value;
+		    	}
+		    }}
+			)
 		);
 	}
 });
