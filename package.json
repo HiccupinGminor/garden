@@ -24,6 +24,7 @@
     "kerberos": "0.0.17",
     "mocha": "^2.3.3",
     "mongoose": "^4.2.5",
+    "raspicam": "^0.2.13",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-nouislider": "^1.7.0",

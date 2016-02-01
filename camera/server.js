@@ -1,5 +1,6 @@
-const http = require('http');
-const cam = require('./camera');
+const http = require('http'),
+			fs = require('fs'),
+			cam = require('./camera');
 
 const server = http.createServer((request, response) => {
 	if(request.method == 'POST') {
