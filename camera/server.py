@@ -11,11 +11,12 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
     def do_POST(self):
         self.send_response(201)
-        self.send_header("Content-type", "text/html")
+        self.send_header("Content-type", "image/jpeg")
         self.end_headers()
 
-        camera.capture()
-        self.wfile.write("FOO")
+        imageInBits = camera.capture()
+
+        self.wfile.write(image)
         self.wfile.close()
 
 Handler = ServerHandler
