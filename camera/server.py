@@ -14,10 +14,11 @@ class ServerHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         self.send_header("Content-type", "image/jpeg")
         self.end_headers()
 
-        imageInBits = camera.capture()
+        file = open(camera.capture(), 'rb')
 
-        self.wfile.write(image)
-        self.wfile.close()
+        self.wfile.write(file.read())
+        file.close()
+        return
 
 Handler = ServerHandler
 

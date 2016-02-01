@@ -1,6 +1,7 @@
 import time
 import picamera
-import Image
+from PIL import Image
+import os
 
 def capture():	
 	camera = picamera.PiCamera()
@@ -9,9 +10,8 @@ def capture():
 	    time.sleep(2)
 	    timeString = time.strftime("%m-%d-%y_%H-%M")
 	    filePath = "images/" + timeString + ".jpg"
-	    camera.capture(filePath)
-	    image = Image.open(filePath)
-	    return image.bits
+            camera.capture(filePath)
+	    return os.path.dirname(os.path.realpath(__file__)) + "/" + filePath
 	    
 	finally:
 	    camera.close()
